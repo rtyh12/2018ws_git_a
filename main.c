@@ -9,30 +9,34 @@
 #include "adc.h"
 #include "pwm.h"
 #include "timer.h"
-#include "servo.h"
+#include "multiservo.h"
 
 
 void init();
 
-int main(void)
-{
-	//Initialisierung ausfuehren
-	
-	init();
+int main(void) {
+	// Initialisierung ausfuehren
 
-	while (1)
-	{
-		uart_putc('X');
-	}	
+	init();
+	
+	
+	uint16_t z = 1000;
+	while (1) {
+		multiSetServo(1,z);
+		z+=10;
+		if (z>2000)
+			z=1000;
+		
+		_delay_ms(20);
+		
+	}
 }
 
 
 //INIT
-void init()
-{
-	uartInit();   // serielle Ausgabe an PC
-	ADCInit(0);   // Analoge Werte einlesen
-	PWMInit();    // Pulsweite auf D6 ausgeben 
-	timerInit();  // "Systemzeit" initialisieren
-	//servoInit();  // Servoansteuerung initialisieren
+void init() {
+	uartInit();		// serielle Ausgabe an PC
+	ADCInit(0);		// Analoge Werte einlesen
+	timerInit();		// "Systemzeit" initialisieren
+	multiServoInit(); // Servoansteuerung initialisieren
 }

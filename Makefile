@@ -8,7 +8,7 @@ PROJECT = basis
 # Sourcefiles
 SOURCE =main.c
 # Files from basis
-SOURCE += adc.c timer.c pwm.c uart.c servo.c
+SOURCE += adc.c timer.c pwm.c uart.c multiservo.c
 # Libraries
 LIBS = -lm 
 
@@ -28,10 +28,10 @@ SERPORT = /dev/ttyS0
 DIAMEXPORT = /dev/ttyACM0 #diamex usb
 
 #select programmer
-#prog: prog-usb
+prog: prog-usb
 #prog: prog-ser
 #prog: prog-funk
-prog: prog-diamexusb
+#prog: prog-diamexusb
 
 
 # Hardware
