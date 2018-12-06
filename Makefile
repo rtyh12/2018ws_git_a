@@ -28,10 +28,10 @@ SERPORT = /dev/ttyS0
 DIAMEXPORT = /dev/ttyACM0 #diamex usb
 
 #select programmer
-prog: prog-usb
+#prog: prog-usb
 #prog: prog-ser
 #prog: prog-funk
-#prog: prog-diamexusb
+prog: prog-diamexusb
 
 
 # Hardware
