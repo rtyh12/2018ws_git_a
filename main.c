@@ -3,6 +3,7 @@
  *	2009 Benjamin Reh und Joachim Schleicher
  */
 #include <avr/io.h>
+#include <stdlib.h>
 #include <inttypes.h>
 #include <util/delay.h>
 #include "uart.h"
@@ -51,7 +52,6 @@ void init();
 int main(void) {
 	init();
 	
-	// each call to this function is one iteration of the loop
 	while (1) {
 		int16_t i;
 		for (i = 0; i < SERVO_COUNT; i++) {
@@ -94,6 +94,17 @@ int main(void) {
 	}
 }
 
+
+// returns 1 if Hit a comes before Hit b, -1 if the other way around, 0 if the times are the same.
+// used to sort the array
+int compare_hits(const void* a, const void* b) {
+	struct Hit arg1 = *(const struct Hit*)a;
+	struct Hit arg2 = *(const struct Hit*)b;
+
+	if (arg1.time < arg2.time) return -1;
+	if (arg1.time > arg2.time) return 1;
+	return 0;
+}
 
 //INIT
 void init() {
@@ -139,6 +150,9 @@ void init() {
 
 	hits[11].string = 3;
 	hits[11].time = 5500;
+
+	// sort the array based on the time of each hit
+	qsort(hits, HIT_COUNT, sizeof(struct Hit), compare_hits);
 	
 	/*
 	pos[0] = 1500;
