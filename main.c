@@ -27,10 +27,10 @@ uint16_t speed = 5;
 
 uint16_t z = 1500;
 
-const uint16_t angle = 25;
+uint16_t angle[SERVO_COUNT];
 const uint16_t middle = 1500;
 
-
+const int loopForeverAndEver = 1;
 
 
 
@@ -55,18 +55,26 @@ int main(void) {
 	while (1) {
 		int16_t i;
 		for (i = 0; i < SERVO_COUNT; i++) {
-			// stop all servos which went out of this range
-			if (pos[i] > middle + angle || pos[i] < middle - angle) {
+			// stop servos that went out of this range:
+			// set dir to 0 (stop movement)
+			// and set pos to the respective edge of the range
+			if (pos[i] > middle + angle[i]) {
 				dir[i] = 0;
+				pos[i] = middle + angle[i];
+			}
+			if (pos[i] < middle - angle[i]) {
+				dir[i] = 0;				
+				pos[i] = middle - angle[i];
 			}
 
 			// iterate through all hits
 			int16_t j;
 			for (j = 0; j < HIT_COUNT; j++) {
-				// if time remaining until the hit is supposed to take place <= time it takes to hit a string
-				if (clock >= hits[j].time - HIT_DELAY && clock <= hits[j].time - HIT_DELAY + 40) {
+				// if time remaining until the hit is supposed to take place <= time it takes to hit a string,
+				// but before the next timestep has started
+				if (clock >= hits[j].time - HIT_DELAY && clock < hits[j].time - HIT_DELAY + LOOP_DELAY) {
 					// then start to move the servo: forwards/backwards, depending on which side we are on right now
-					dir[hits[j].string] = pos[hits[j].string] < 1500 ? 1 : -1;
+					dir[hits[j].string] = pos[hits[j].string] < middle ? 1 : -1;
 				}
 			}		
 
@@ -76,9 +84,11 @@ int main(void) {
 		}				
 
 		clock += LOOP_DELAY;
-
-		if (clock >= 6000)
+		
+		if (loopForeverAndEver) {
+			if (clock >= 5500)
 		        clock = 0;
+		}
 
 		_delay_ms(LOOP_DELAY);
 	}
@@ -134,17 +144,22 @@ void init() {
 	pos[0] = 1500;
 	dir[0] = 1;*/
 
+
 	int16_t i;
 	for (i = 0; i < SERVO_COUNT; i++)
-		pos[i] = middle - angle;
+		angle[i] = 20;
+
+	for (i = 0; i < SERVO_COUNT; i++)
+		pos[i] = middle - angle[i];
 	
 	for (i = 0; i < SERVO_COUNT; i++)
 		dir[i] = 0;
+		
 	
 	offset[0] = 0;
 	offset[1] = 0;
 	offset[2] = 0;
-	offset[3] = 0;
+	offset[3] = -20;
 	offset[4] = 0;
 	offset[5] = 0;
 }
