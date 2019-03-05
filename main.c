@@ -12,6 +12,7 @@
 #include "timer.h"
 #include "multiservo.h"
 
+#include "notes.h"
 
 
 #define SERVO_COUNT 6
@@ -32,16 +33,6 @@ uint16_t angle[SERVO_COUNT];
 const uint16_t middle = 1500;
 
 const int loopForeverAndEver = 1;
-
-
-
-struct Hit {
-	uint16_t string;
-	uint16_t time;
-};
-
-#define HIT_COUNT 12
-struct Hit hits[HIT_COUNT];
 
 
 
@@ -115,41 +106,7 @@ void init() {
 	
 	clock = -HIT_DELAY - 2500;
 
-	hits[0].string = 3;
-	hits[0].time = 0;
-
-	hits[1].string = 3;
-	hits[1].time = 500;
-
-	hits[2].string = 3;
-	hits[2].time = 1000;
-
-	hits[3].string = 3;
-	hits[3].time = 1500;
-
-	hits[4].string = 3;
-	hits[4].time = 2000;
-
-	hits[5].string = 3;
-	hits[5].time = 2500;
-
-	hits[6].string = 3;
-	hits[6].time = 3000;
-
-	hits[7].string = 3;
-	hits[7].time = 3500;
-
-	hits[8].string = 3;
-	hits[8].time = 4000;
-
-	hits[9].string = 3;
-	hits[9].time = 4500;
-
-	hits[10].string = 3;
-	hits[10].time = 5000;
-
-	hits[11].string = 3;
-	hits[11].time = 5500;
+	set_notes();        // from the (hopefully) automatically generated notes.h
 
 	// sort the array based on the time of each hit
 	qsort(hits, HIT_COUNT, sizeof(struct Hit), compare_hits);
