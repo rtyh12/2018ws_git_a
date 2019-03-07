@@ -133,10 +133,10 @@ void init() {
     for (i = 0; i < SERVO_COUNT; i++)
         dir[i] = 0;
 
-    offset[0] = 0;
-    offset[1] = 0;
-    offset[2] = 0;
-    offset[3] = -20;
-    offset[4] = 0;
-    offset[5] = 0;
+    offset[0] = 60; // (length and position) adjusted
+    offset[1] = 60; // (length and position) adjusted
+	offset[2] = -10; // (length and position) adjusted
+	offset[3] = -33; // (length and position) adjusted
+	offset[4] = 95; // (length and position) adjusted
+	offset[5] = -105; // (length and position) adjusted
 }
