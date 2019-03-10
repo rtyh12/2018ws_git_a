@@ -14,20 +14,20 @@
 #include "multiservo.h"
 
 
-#include "notes.h"
+#include "notes1.h"
 
 
 #define SERVO_COUNT 6
 #define LOOP_DELAY 10               // size of "timestep"
 
 int32_t clock;                      // milliseconds. current position in the song
-#define HIT_DELAY 50                // time it takes to hit a string from the idle position
+#define HIT_DELAY 20                 // time it takes to hit a string from the idle position
 
 uint16_t pos[SERVO_COUNT];          // current position per servo
 int16_t dir[SERVO_COUNT];           // current direction per servo: -1 for backwards, 1 for forwards, 0 for stopped
 int16_t offset[SERVO_COUNT];        // offset from "true" center position. offset +- angle may not go out of the range (1000, 2000), otherwise the servos will cry :(
 
-uint16_t speed = 5;
+uint16_t speed = 35;
 
 uint16_t angle[SERVO_COUNT];        // how wide the angle of each servo is
 const uint16_t middle = 1500;       // don't change this
@@ -125,7 +125,7 @@ void init() {
 
     int16_t i;
     for (i = 0; i < SERVO_COUNT; i++)
-        angle[i] = 20;
+        angle[i] = 35;
 
     for (i = 0; i < SERVO_COUNT; i++)
         pos[i] = middle - angle[i];
@@ -133,10 +133,10 @@ void init() {
     for (i = 0; i < SERVO_COUNT; i++)
         dir[i] = 0;
 
-    offset[0] = 60;
-    offset[1] = 60;
-	offset[2] = -10;
-	offset[3] = -33;
-	offset[4] = 95;
-	offset[5] = -105;
+    offset[0] = -70; // (length and position) adjusted
+    offset[1] = 40; // (length and position) adjusted
+	offset[2] = -40; // (length and position) adjusted
+	offset[3] = -40; // (length and position) adjusted
+	offset[4] = 92; // (length and position) adjusted
+	offset[5] = -105; // (length and position) adjusted
 }
