@@ -32,7 +32,7 @@ uint16_t speed = 5;
 uint16_t angle[SERVO_COUNT];        // how wide the angle of each servo is
 const uint16_t middle = 1500;       // don't change this
 
-const int loopForeverAndEver = 1;
+const uint16_t loopForeverAndEver = 0;
 uint16_t hit_i = 0;                 // current note in the song
 
 
@@ -133,10 +133,10 @@ void init() {
     for (i = 0; i < SERVO_COUNT; i++)
         dir[i] = 0;
 
-    offset[0] = 0;
-    offset[1] = 0;
-    offset[2] = 0;
-    offset[3] = -20;
-    offset[4] = 0;
-    offset[5] = 0;
+    offset[0] = 60;
+    offset[1] = 60;
+	offset[2] = -10;
+	offset[3] = -33;
+	offset[4] = 95;
+	offset[5] = -105;
 }
