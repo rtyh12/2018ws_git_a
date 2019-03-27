@@ -71,7 +71,7 @@ void init() {
 
 	int16_t i;
 	for (i = 0; i < SERVO_COUNT; i++)
-		angle[i] = 35;
+		angle[i] = 37;
 
 	for (i = 0; i < SERVO_COUNT; i++)
 		pos[i] = middle - angle[i];
@@ -130,8 +130,8 @@ void loop() {
 
 	// should the song be played for ever or just once
 	if (loopForeverAndEver) {
-		if (hit >= HIT_COUNT - 1){
-			clock = -HIT_DELAY;
+		if (clock >= hits[HIT_COUNT - 1].time){
+			clock = -HIT_DELAY - 1100;
 			hit = 0;
 		}
 	}
