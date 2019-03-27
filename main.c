@@ -8,7 +8,7 @@
 #include "timer.h"
 #include "multiservo.h"
 
-#include "notes.h"
+#include "notes1.h"
 
 
 #define SERVO_COUNT 6
@@ -26,7 +26,7 @@ uint16_t speed = 35;
 uint16_t angle[SERVO_COUNT];
 const uint16_t middle = 1500;
 
-const int loopForeverAndEver = 0;
+const int loopForeverAndEver = 1;
 uint16_t hit = 0;                 // current note in the song
 
 
@@ -37,34 +37,6 @@ void loop();
 
 int main(void) {
 	init();
-
-	while (1) {
-		int16_t i;
-		for (i = 0; i < SERVO_COUNT; i++) {
-			// stop servos that went out of this range:
-			// set dir to 0 (stop movement)
-			// and set pos to the respective edge of the range
-			if (pos[i] > middle + angle[i]) {
-				dir[i] = 0;
-				pos[i] = middle + angle[i];
-			}
-			if (pos[i] < middle - angle[i]) {
-				dir[i] = 0;
-				pos[i] = middle - angle[i];
-			}
-
-			// iterate through all hits
-			int16_t j;
-			for (j = 0; j < HIT_COUNT; j++) {
-				// if time remaining until the hit is supposed to take place <= time it takes to hit a string,
-				// but before the next timestep has started
-				if (clock >= hits[j].time - HIT_DELAY && clock < hits[j].time - HIT_DELAY + LOOP_DELAY) {
-					// then start to move the servo: forwards/backwards, depending on which side we are on right now
-					dir[hits[j].string] = pos[hits[j].string] < middle ? 1 : -1;
-				}
-			}
-
-			pos[i] += dir[i] * speed;
 
 	while (1) {
 		loop();
