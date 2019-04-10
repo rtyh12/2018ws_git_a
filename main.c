@@ -114,10 +114,7 @@ void loop() {
 			// then start to move the servo: forwards/backwards, depending on which side we are on right now
 			dir[hits[j].string] = pos[hits[j].string] < middle ? 1 : -1;
 			hit += 1;
-		} // else if (clock >= hits[j].time + HIT_DELAY + LOOP_DELAY) {
-			// break;
-		// } // this else block does not work, it swallowes too many notes... nearly
-		// all of them, need to check where the logic mistake is TODO
+		}
 	}
 
 	// move servos
